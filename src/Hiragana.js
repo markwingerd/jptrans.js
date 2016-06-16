@@ -36,6 +36,10 @@ function translate(romanji) {
   romanji = romanji.toUpperCase().split('');
 
   romanji.forEach(function(char, idx) {
+    if (vowel.indexOf(char) == -1 && currentSyllable == char) {
+      hiragana += hiraganaHash['stsu'];
+      currentSyllable = '';
+    }
     currentSyllable += char;
 
     if (vowel.indexOf(char) > -1) {
@@ -56,7 +60,7 @@ function translate(romanji) {
 function getOpenSyllable(syllable, romanji, idx) {
   if (syllable == 'O') {
     if (idx > 0 && romanji[idx-1] == 'O') {
-      return hiraganaHash['U']; 
+      return hiraganaHash['U'];
     }
   }
 

@@ -12,4 +12,8 @@ describe("Hiragana", function() {
   it("handles double O characters", function() {
     expect(translate("Tookyoo")).toEqual("とうきょう");
   });
+
+  it("handles double consonants", function() {
+    expect(translate("matte")).toEqual("まって");
+  });
 });
