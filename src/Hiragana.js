@@ -39,7 +39,7 @@ function translate(romanji) {
     currentSyllable += char;
 
     if (vowel.indexOf(char) > -1) {
-      hiragana += getOpenSyllable(currentSyllable);
+      hiragana += getOpenSyllable(currentSyllable, romanji, idx);
       currentSyllable = '';
     }
 
@@ -53,7 +53,13 @@ function translate(romanji) {
   return hiragana;
 };
 
-function getOpenSyllable(syllable) {
+function getOpenSyllable(syllable, romanji, idx) {
+  if (syllable == 'O') {
+    if (idx > 0 && romanji[idx-1] == 'O') {
+      return hiraganaHash['U']; 
+    }
+  }
+
   return hiraganaHash[currentSyllable];
 };
 

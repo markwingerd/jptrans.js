@@ -8,4 +8,8 @@ describe("Hiragana", function() {
     expect(translate("mimasen")).toEqual("みません");
     expect(translate("nyan")).toEqual("にゃん");
   });
+
+  it("handles double O characters", function() {
+    expect(translate("Tookyoo")).toEqual("とうきょう");
+  });
 });
