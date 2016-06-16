@@ -25,4 +25,9 @@ describe("Hiragana", function() {
   it("handles punctuation", function() {
     expect(translate("Okaeri nasai.")).toEqual("おかえり なさい。");
   });
+
+  it("handles particles with special rules", function() {
+    expect(translate("Kuni wa Amerika desu.")).toEqual("くに は あめりか です。");
+    expect(translate("Chotto ocha o nomimasen ka?")).toEqual("ちょっと おちゃ を のみません か?");
+  });
 });
