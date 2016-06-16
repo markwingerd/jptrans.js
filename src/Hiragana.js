@@ -36,6 +36,10 @@ function translate(romanji) {
   romanji = romanji.toUpperCase().split('');
 
   romanji.forEach(function(char, idx) {
+    if (vowel.indexOf(char) == -1 && currentSyllable == char) {
+      hiragana += hiraganaHash['stsu'];
+      currentSyllable = '';
+    }
     currentSyllable += char;
 
     if (vowel.indexOf(char) > -1) {
@@ -48,6 +52,16 @@ function translate(romanji) {
       hiragana += value
       if (value) currentSyllable = '';
     }
+
+    if (char == ' ') {
+      hiragana += ' ';
+      currentSyllable = '';
+    }
+
+    if (['.','!','?'].indexOf(char) > -1) {
+      hiragana += hiraganaHash[char];
+      currentSyllable = '';
+    }
   });
 
   return hiragana;
@@ -56,7 +70,7 @@ function translate(romanji) {
 function getOpenSyllable(syllable, romanji, idx) {
   if (syllable == 'O') {
     if (idx > 0 && romanji[idx-1] == 'O') {
-      return hiraganaHash['U']; 
+      return hiraganaHash['U'];
     }
   }
 
@@ -68,7 +82,7 @@ function getClosedSyllable(syllable, romanji, idx) {
     return hiraganaHash[currentSyllable];
   }
   if (idx+1 < romanji.length) {
-    if (vowel.indexOf(romanji[idx+1] == -1) && (romanji[idx+1] != 'Y')) {
+    if ((vowel.indexOf(romanji[idx+1]) == -1) && (romanji[idx+1] != 'Y')) {
       return hiraganaHash[currentSyllable];
     }
   }
