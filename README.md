@@ -9,7 +9,7 @@ Hiragana text by entering Romanji text.
 Usage
 =====
 
-Add src/Hiragana.js into your project
+Add `src/Hiragana.js` into your project
 ```
 translate("Konnichiwa."); // こんにちわ
 translate("Ogenki desuka?"); // おげんき ですか?
