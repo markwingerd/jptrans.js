@@ -72,7 +72,7 @@ function getClosedSyllable(syllable, romanji, idx) {
     return hiraganaHash[currentSyllable];
   }
   if (idx+1 < romanji.length) {
-    if (vowel.indexOf(romanji[idx+1] == -1) && (romanji[idx+1] != 'Y')) {
+    if ((vowel.indexOf(romanji[idx+1]) == -1) && (romanji[idx+1] != 'Y')) {
       return hiraganaHash[currentSyllable];
     }
   }

@@ -7,6 +7,7 @@ describe("Hiragana", function() {
   it("handles the n character", function() {
     expect(translate("mimasen")).toEqual("みません");
     expect(translate("nyan")).toEqual("にゃん");
+    expect(translate("nihon")).toEqual("にほん")
   });
 
   it("handles double O characters", function() {
