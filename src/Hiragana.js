@@ -125,7 +125,7 @@ function isEndOfWord(romanji, idx) {
     return true;
   }
   return false;
-}
+};
 
 function isClosedSyllable(romanji, idx) {
   if (romanji[idx] == 'N') {
@@ -136,4 +136,4 @@ function isClosedSyllable(romanji, idx) {
     }
   }
   return false;
-}
+};
