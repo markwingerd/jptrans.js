@@ -39,17 +39,32 @@ function translate(romanji) {
     currentSyllable += char;
 
     if (vowel.indexOf(char) > -1) {
-      hiragana += hiraganaHash[currentSyllable];
+      hiragana += getOpenSyllable(currentSyllable);
       currentSyllable = '';
     }
 
     if (currentSyllable == 'N') {
-      if (idx + 1 == romanji.length || (vowel.indexOf(romanji[idx+1]) && (romanji[idx+1] != 'Y'))) {
-        hiragana += hiraganaHash[currentSyllable];
-        currentSyllable = '';
-      }
+      value = getClosedSyllable(currentSyllable, romanji, idx);
+      hiragana += value
+      if (value) currentSyllable = '';
     }
   });
 
   return hiragana;
-}
+};
+
+function getOpenSyllable(syllable) {
+  return hiraganaHash[currentSyllable];
+};
+
+function getClosedSyllable(syllable, romanji, idx) {
+  if (idx + 1 == romanji.length) {
+    return hiraganaHash[currentSyllable];
+  }
+  if (idx+1 < romanji.length) {
+    if (vowel.indexOf(romanji[idx+1] == -1) && (romanji[idx+1] != 'Y')) {
+      return hiraganaHash[currentSyllable];
+    }
+  }
+  return '';
+};
