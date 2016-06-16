@@ -33,7 +33,8 @@ function translate(romanji) {
   hiragana = '';
   currentSyllable = '';
 
-  romanji = romanji.toUpperCase().split('');
+  romanji = convertParticles(romanji.toUpperCase());
+  romanji = romanji.split('');
   romanji = convertDoubleO(romanji);
 
   romanji.forEach(function(char, idx) {
@@ -104,8 +105,8 @@ function isPunctuation(char) {
 };
 
 function convertDoubleO(romanji) {
-  converted = []
-  lastChar = ''
+  converted = [];
+  lastChar = '';
   romanji.forEach(function(char) {
     if (lastChar == 'O' && char == 'O') {
       converted.push('U');
@@ -136,4 +137,19 @@ function isClosedSyllable(romanji, idx) {
     }
   }
   return false;
+};
+
+function convertParticles(romanji) {
+  romanjiWords = romanji.split(' ');
+
+  romanjiWords.forEach(function(word, idx) {
+    if (word == 'WA') {
+      romanjiWords[idx] = 'HA';
+    } else if (word == 'O') {
+      romanjiWords[idx] = 'WO';
+    } else if (word == 'E') {
+      romanjiWords[idx] = 'HE';
+    }
+  });
+  return romanjiWords.join(' ');
 };
