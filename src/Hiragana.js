@@ -35,12 +35,18 @@ function translate(romanji) {
 
   romanji = romanji.toUpperCase().split('');
 
-  romanji.forEach(function(char) {
+  romanji.forEach(function(char, idx) {
     currentSyllable += char;
 
     if (vowel.indexOf(char) > -1) {
       hiragana += hiraganaHash[currentSyllable];
       currentSyllable = '';
+    }
+
+    if (currentSyllable == 'N') {
+      if (idx + 1 == romanji.length || vowel.indexOf(romanji[idx+1])) {
+        hiragana += hiraganaHash[currentSyllable];
+      }
     }
   });
 
