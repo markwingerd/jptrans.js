@@ -44,7 +44,7 @@ function translate(romanji) {
     }
 
     if (currentSyllable == 'N') {
-      if (idx + 1 == romanji.length || vowel.indexOf(romanji[idx+1])) {
+      if (idx + 1 == romanji.length || (vowel.indexOf(romanji[idx+1]) && (romanji[idx+1] != 'Y'))) {
         hiragana += hiraganaHash[currentSyllable];
         currentSyllable = '';
       }
