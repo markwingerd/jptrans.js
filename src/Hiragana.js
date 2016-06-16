@@ -52,6 +52,11 @@ function translate(romanji) {
       hiragana += value
       if (value) currentSyllable = '';
     }
+    
+    if (char == ' ') {
+      hiragana += ' ';
+      currentSyllable = '';
+    }
   });
 
   return hiragana;

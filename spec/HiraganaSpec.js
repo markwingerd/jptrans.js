@@ -17,4 +17,8 @@ describe("Hiragana", function() {
   it("handles double consonants", function() {
     expect(translate("matte")).toEqual("まって");
   });
+
+  it("handles multiple words", function() {
+    expect(translate("watakushi no nihongo")).toEqual("わたくし の にほんご")
+  })
 });
