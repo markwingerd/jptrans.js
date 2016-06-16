@@ -34,23 +34,24 @@ function translate(romanji) {
   currentSyllable = '';
 
   romanji = romanji.toUpperCase().split('');
+  romanji = convertDoubleO(romanji);
 
   romanji.forEach(function(char, idx) {
-    if (vowel.indexOf(char) == -1 && currentSyllable == char) {
-      hiragana += hiraganaHash['stsu'];
-      currentSyllable = '';
-    }
     currentSyllable += char;
 
-    if (vowel.indexOf(char) > -1) {
+    if (isDoubleConsonant(currentSyllable)) {
+      hiragana += hiraganaHash['stsu'];
+      currentSyllable = currentSyllable[1];
+    }
+
+    if (isVowel(char)) {
       hiragana += getOpenSyllable(currentSyllable, romanji, idx);
       currentSyllable = '';
     }
 
-    if (currentSyllable == 'N') {
-      value = getClosedSyllable(currentSyllable, romanji, idx);
-      hiragana += value
-      if (value) currentSyllable = '';
+    if (isClosedSyllable(romanji, idx)) {
+      hiragana += getClosedSyllable(currentSyllable, romanji, idx);
+      currentSyllable = '';
     }
 
     if (char == ' ') {
@@ -58,7 +59,7 @@ function translate(romanji) {
       currentSyllable = '';
     }
 
-    if (['.','!','?'].indexOf(char) > -1) {
+    if (isPunctuation(char)) {
       hiragana += hiraganaHash[char];
       currentSyllable = '';
     }
@@ -68,23 +69,71 @@ function translate(romanji) {
 };
 
 function getOpenSyllable(syllable, romanji, idx) {
-  if (syllable == 'O') {
-    if (idx > 0 && romanji[idx-1] == 'O') {
-      return hiraganaHash['U'];
-    }
-  }
-
   return hiraganaHash[currentSyllable];
 };
 
 function getClosedSyllable(syllable, romanji, idx) {
-  if (idx + 1 == romanji.length) {
+  if (isEndOfWord(romanji, idx)) {
     return hiraganaHash[currentSyllable];
   }
-  if (idx+1 < romanji.length) {
-    if ((vowel.indexOf(romanji[idx+1]) == -1) && (romanji[idx+1] != 'Y')) {
-      return hiraganaHash[currentSyllable];
-    }
+  if (isNotVowel(romanji[idx+1]) && (romanji[idx+1] != 'Y')) {
+    return hiraganaHash[currentSyllable];
   }
   return '';
 };
+
+// Helper functions
+
+function isVowel(char) {
+  return ['A', 'I', 'U', 'E', 'O'].indexOf(char) > -1;
+};
+
+function isNotVowel(char) {
+  return !isVowel(char)
+};
+
+function isDoubleConsonant(syllable) {
+  if (syllable.length == 2 && syllable[0] == syllable[1]) {
+    return true;
+  }
+  return false;
+};
+
+function isPunctuation(char) {
+  return ['.','!','?'].indexOf(char) > -1;
+};
+
+function convertDoubleO(romanji) {
+  converted = []
+  lastChar = ''
+  romanji.forEach(function(char) {
+    if (lastChar == 'O' && char == 'O') {
+      converted.push('U');
+    } else {
+      converted.push(char);
+    }
+    lastChar = char;
+  });
+  return converted;
+};
+
+function isEndOfWord(romanji, idx) {
+  if (idx+1 == romanji.length) {
+    return true;
+  } else
+  if (romanji[idx+1] == ' ') {
+    return true;
+  }
+  return false;
+}
+
+function isClosedSyllable(romanji, idx) {
+  if (romanji[idx] == 'N') {
+    if (isEndOfWord(romanji,idx)) {
+      return true;
+    } else if (isNotVowel(romanji[idx+1]) && romanji[idx+1] != 'Y') {
+      return true;
+    }
+  }
+  return false;
+}
