@@ -52,9 +52,14 @@ function translate(romanji) {
       hiragana += value
       if (value) currentSyllable = '';
     }
-    
+
     if (char == ' ') {
       hiragana += ' ';
+      currentSyllable = '';
+    }
+
+    if (['.','!','?'].indexOf(char) > -1) {
+      hiragana += hiraganaHash[char];
       currentSyllable = '';
     }
   });

@@ -19,6 +19,10 @@ describe("Hiragana", function() {
   });
 
   it("handles multiple words", function() {
-    expect(translate("watakushi no nihongo")).toEqual("わたくし の にほんご")
-  })
+    expect(translate("watakushi no nihongo")).toEqual("わたくし の にほんご");
+  });
+
+  it("handles punctuation", function() {
+    expect(translate("Okaeri nasai.")).toEqual("おかえり なさい。");
+  });
 });
