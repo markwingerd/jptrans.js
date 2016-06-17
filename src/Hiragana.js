@@ -41,17 +41,20 @@ function translate(romanji) {
     currentSyllable += char;
 
     if (isDoubleConsonant(currentSyllable)) {
-      hiragana += hiraganaHash['stsu'];
+      hiragana += hiraganaHash['stsu'] ||
+                  handleBadSyllable(currentSyllable);
       currentSyllable = currentSyllable[1];
     }
 
     if (isVowel(char)) {
-      hiragana += getOpenSyllable(currentSyllable, romanji, idx);
+      hiragana += getOpenSyllable(currentSyllable, romanji, idx) ||
+                  handleBadSyllable(currentSyllable);
       currentSyllable = '';
     }
 
     if (isClosedSyllable(romanji, idx)) {
-      hiragana += getClosedSyllable(currentSyllable, romanji, idx);
+      hiragana += getClosedSyllable(currentSyllable, romanji, idx) ||
+                  handleBadSyllable(currentSyllable);
       currentSyllable = '';
     }
 
@@ -152,4 +155,15 @@ function convertParticles(romanji) {
     }
   });
   return romanjiWords.join(' ');
+};
+
+function handleBadSyllable(syllable) {
+  syllableArray = syllable.split('');
+
+  while (syllableArray.length > 0) {
+    syllableArray.shift();
+    if (syllableArray.join('') in hiraganaHash) {
+      return hiraganaHash[syllableArray.join('')];
+    }
+  }
 };
