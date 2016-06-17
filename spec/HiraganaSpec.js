@@ -30,4 +30,8 @@ describe("Hiragana", function() {
     expect(translate("Kuni wa Amerika desu.")).toEqual("くに は あめりか です。");
     expect(translate("Chotto ocha o nomimasen ka?")).toEqual("ちょっと おちゃ を のみません か?");
   });
+
+  it("fails gracefully", function() {
+    expect(translate("Konnifdschiwa")).toEqual("こんにFDSちわ");
+  });
 });
