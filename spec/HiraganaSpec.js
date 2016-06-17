@@ -32,6 +32,6 @@ describe("Hiragana", function() {
   });
 
   it("fails gracefully", function() {
-    expect(translate("Konnifdschiwa")).toEqual("こんにちわ");
+    expect(translate("Konnifdschiwa")).toEqual("こんにFDSちわ");
   });
 });

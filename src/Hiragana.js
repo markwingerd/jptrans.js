@@ -158,12 +158,15 @@ function convertParticles(romanji) {
 };
 
 function handleBadSyllable(syllable) {
+  returnVal = "";
   syllableArray = syllable.split('');
 
   while (syllableArray.length > 0) {
-    syllableArray.shift();
+    returnVal += syllableArray.shift();
     if (syllableArray.join('') in hiraganaHash) {
-      return hiraganaHash[syllableArray.join('')];
+      returnVal += hiraganaHash[syllableArray.join('')];
+      break;
     }
   }
+  return returnVal;
 };
