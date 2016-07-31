@@ -11,9 +11,9 @@ Usage
 
 Add `src/Hiragana.js` into your project
 ```
-translate("Konnichiwa."); // こんにちわ
-translate("Ogenki desuka?"); // おげんき ですか?
-translate("Shusshin wa doko desu ka?"); // しゅっしん は どこ です か?
+jptrans.translate("Konnichiwa."); // こんにちわ
+jptrans.translate("Ogenki desuka?"); // おげんき ですか?
+jptrans.translate("Shusshin wa doko desu ka?"); // しゅっしん は どこ です か?
 ```
 
 =======
