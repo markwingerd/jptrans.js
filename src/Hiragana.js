@@ -125,8 +125,7 @@ var jptrans = (function() {
   function isEndOfWord(romanji, idx) {
     if (idx+1 == romanji.length) {
       return true;
-    } else
-    if (romanji[idx+1] == ' ') {
+    } else if (romanji[idx+1] == ' ') {
       return true;
     }
     return false;
